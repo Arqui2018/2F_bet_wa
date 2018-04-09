@@ -74,7 +74,7 @@ class Matches extends React.Component {
     graphql(getAllTeams)(
       ({data: {allTeams=[],lodading}})=>
         this.setState({allTeams:allTeams})
-      
+
 
     )
 
@@ -82,33 +82,135 @@ class Matches extends React.Component {
   }
   render() {
     return (
-    <Grid  verticalAlign='middle' columns={4} centered style={styles.grid}>
+    <Grid  verticalAlign='middle' columns={3} centered style={styles.grid}>
+      <img src='images/APUESTAMUNDIAL2.png'/>
+      <container>
+        <h1>Seleccione el encuentro en el cual desea efectuar su apuesta</h1>
+      </container>
+      <Grid.Row>
+        <Grid.Column>
+
+          <div>
+
+            <div style={styles.box}>
+              <h4>Junio 14</h4>
+              {/* {this.state.allMatches.map((match, i)=><li key={i}>{match.id}</li>)} */}
+            </div>
+          </div>
+        </Grid.Column>
+        <Grid.Column>
+          <div>
+            <div style={styles.box}>
+              <h4>Junio 15</h4>
+
+            </div>
+          </div>
+        </Grid.Column>
+        <Grid.Column>
+          <div>
+            <div style={styles.box}>
+              <h4>Junio 16</h4>
+
+            </div>
+          </div>
+        </Grid.Column>
+      </Grid.Row>
+
       <Grid.Row>
         <Grid.Column>
           <div>
             <div style={styles.box}>
-              {this.state.allMatches.map((match, i)=><li key={i}>{match.id}</li>)}
+              <h4>Junio 17</h4>
+              {/* {this.state.allMatches.map((match, i)=><li key={i}>{match.id}</li>)} */}
             </div>
           </div>
         </Grid.Column>
         <Grid.Column>
           <div>
             <div style={styles.box}>
-
+              <h4>Junio 18</h4>
             </div>
           </div>
         </Grid.Column>
         <Grid.Column>
           <div>
             <div style={styles.box}>
+              <h4>Junio 19</h4>
+            </div>
+          </div>
+        </Grid.Column>
+      </Grid.Row>
 
+      <Grid.Row>
+        <Grid.Column>
+          <div>
+            <div style={styles.box}>
+              <h4>Junio 20</h4>
+              {/* {this.state.allMatches.map((match, i)=><li key={i}>{match.id}</li>)} */}
             </div>
           </div>
         </Grid.Column>
         <Grid.Column>
           <div>
             <div style={styles.box}>
+              <h4>Junio 21</h4>
+            </div>
+          </div>
+        </Grid.Column>
+        <Grid.Column>
+          <div>
+            <div style={styles.box}>
+              <h4>Junio 22</h4>
+            </div>
+          </div>
+        </Grid.Column>
+      </Grid.Row>
 
+      <Grid.Row>
+        <Grid.Column>
+          <div>
+            <div style={styles.box}>
+              <h4>Junio 23</h4>
+              {/* {this.state.allMatches.map((match, i)=><li key={i}>{match.id}</li>)} */}
+            </div>
+          </div>
+        </Grid.Column>
+        <Grid.Column>
+          <div>
+            <div style={styles.box}>
+              <h4>Junio 24</h4>
+            </div>
+          </div>
+        </Grid.Column>
+        <Grid.Column>
+          <div>
+            <div style={styles.box}>
+              <h4>Junio 25</h4>
+            </div>
+          </div>
+        </Grid.Column>
+      </Grid.Row>
+
+      <Grid.Row>
+        <Grid.Column>
+          <div>
+            <div style={styles.box}>
+              <h4>Junio 26</h4>
+              {/* {this.state.allMatches.map((match, i)=><li key={i}>{match.id}</li>)} */}
+            </div>
+          </div>
+        </Grid.Column>
+        <Grid.Column>
+          <div>
+            <div style={styles.box}>
+              <h4>Junio 27</h4>
+            </div>
+          </div>
+        </Grid.Column>
+        <Grid.Column>
+          <div>
+            <div style={styles.box}>
+              <h4>Junio 28</h4>
             </div>
           </div>
         </Grid.Column>

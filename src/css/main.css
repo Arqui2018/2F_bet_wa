@@ -1,4 +1,4 @@
-body, root#{
-  background-image: url("/images/logofondomundial.png");
-  height: 100%
+body, #root{
+  background: #fafafa;
+  height: 100%;
 }

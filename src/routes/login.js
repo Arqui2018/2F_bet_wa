@@ -1,6 +1,7 @@
 import React from 'react';
 import {Grid} from 'semantic-ui-react';
 import Signin from './login/Signin'
+import '../css/main.css';
 
 const styles={
   grid:{

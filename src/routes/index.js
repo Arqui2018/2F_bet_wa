@@ -8,6 +8,7 @@ import {
 import Home from './home';
 import Login from './login';
 import Matches from './matches';
+
 import 'semantic-ui-css/semantic.min.css';
 import '../css/main.css';
 

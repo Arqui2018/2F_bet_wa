@@ -10,10 +10,10 @@ const query= gpl`{
   }
 }`;
 
-const resultItems = (result, i)=><li key={i}>{result.user_id}</li>
+//const resultItems = (result, i)=><li key={i}>{result.user_id}</li>
 
 export default graphql(query)(
-  ({data: {resultById=[],lodading}})=>
+  ({data: {resultById=0,lodading}})=>
   <ul>
     {resultById.amount}
   </ul>
