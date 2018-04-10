@@ -7,7 +7,7 @@ export default({styles})=>{
   return(
     <div>
       <div style={styles.box}>
-        <img src='images/APUESTA MUNDIAL.png'/>
+        <img alt="Logo" src='images/APUESTA MUNDIAL.png'/>
         <Form>
           <Form.Field>
             <input placeholder='Email' />
@@ -16,6 +16,7 @@ export default({styles})=>{
             <input type="password" placeholder='Contraseña' />
           </Form.Field>
           <Button type='submit' primary fluid>Iniciar Sesión</Button>
+
         </Form>
       </div>
     </div>

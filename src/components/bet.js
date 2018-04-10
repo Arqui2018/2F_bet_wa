@@ -1,6 +1,6 @@
 import React from 'react';
 import {Grid} from 'semantic-ui-react';
-import Signin from './login/Signin'
+import Result from './result'
 import '../css/main.css';
 
 const styles={
@@ -18,16 +18,16 @@ const styles={
   }
 }
 
-class Login extends React.Component {
+class Bet extends React.Component {
   render() {
     return (
     <Grid  verticalAlign='middle' columns={2} centered style={styles.grid}>
       <Grid.Row>
         <Grid.Column>
-          <img alt="LogoMundial" src="images/fifawordcup.jpg"/>
+          <Result styles={styles}/>
         </Grid.Column>
         <Grid.Column>
-          <Signin styles={styles}/>
+          <img alt="mascotaMundial" src="images/mascota.jpg"/>
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -35,4 +35,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login
+export default Bet

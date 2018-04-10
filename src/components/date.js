@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
-import Matches from './matches'
+import Matches from './matches';
 
 const styles={
   box:{
@@ -11,8 +9,7 @@ const styles={
     marginBottom:'1em',
     padding:'1em'
   }
-}
-
+};
 
 class Date extends Component {
   constructor(props){
@@ -28,7 +25,6 @@ class Date extends Component {
     console.log("clicked")
   }
 
-
   render() {
     return (
       <div onClick={this.viewMatches}style={styles.box} >
@@ -37,7 +33,7 @@ class Date extends Component {
         </div>
         { this.state.clicked ?
           <Matches day={this.state.day} />
-          : <a href="#" onClick={this.viewMatches}>Ver Partidos</a>
+          : <a href={null} onClick={this.viewMatches}>Ver Partidos</a>
         }
       </div>
     )

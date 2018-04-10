@@ -3,11 +3,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 class Match extends Component {
-
-  constructor(){
-    super();
-  }
-
+  
   render() {
     if (this.props.teamsMatchQuery && this.props.teamsMatchQuery.loading) {
       return <div>Loading</div>
