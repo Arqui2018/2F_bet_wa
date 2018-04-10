@@ -1,8 +1,9 @@
 import React from 'react';
 import {Grid} from 'semantic-ui-react';
 import Signin from './login/Signin'
+import Match from './match'
 import {graphql} from 'react-apollo';
-import gpl from 'graphql-tag';
+import gql from 'graphql-tag';
 
 const styles={
   grid:{
@@ -20,26 +21,57 @@ const styles={
 }
 
 class Matches extends React.Component {
+  constructor(){
+    super();
+    this.state={
+      date: null,
+      local: null,
+      visitor: null
+    }
+  }
+  selectMactchesByDate( allMatches, day){
+    let matchesOnDay = [], tmp;
+    allMatches.map( match => {
+        tmp = new Date(match.date)
+        if(tmp.getDate() === day){
+          matchesOnDay.push(match)
+        }
+      }
+    )
+    return matchesOnDay;
+  }
 
   render() {
+    if (this.props.allMatchesQuery && this.props.allMatchesQuery.loading) {
+      return <div>Loading</div>
+    }
+    if (this.props.allMatchesQuery && this.props.allMatchesQuery.error) {
+      return <div>Error</div>
+    }
+    const Matches = this.props.allMatchesQuery.allMatches
+    const MatchesOnDay = this.selectMactchesByDate( Matches, this.props.day)
+    let state={
+      title: null,
+      visitor: null,
+      date: null
+    }
     return (
-    <Grid  verticalAlign='middle' centered style={styles.grid}>
-      <container>
-        <img src='images/APUESTAMUNDIAL2.png'/>
-      </container>
-      <container>
-        <h1>Seleccione el encuentro en el cual desea efectuar su apuesta</h1>
-      </container>
-      <container>
-        <div>
-          <div style={styles.box}>
-            <h2>Aqui van los partidos </h2>
-            </div>
-        </div>
-      </container>
-    </Grid>
+      MatchesOnDay.map( mat => <Match match={mat} /> )
+      //   <Match match={this.state} />
+      // </div>
     )
   }
 }
 
-export default Matches
+const ALL_MATCHES_QUERY = gql`
+  query AllMatches {
+    allMatches {
+      id
+      team_local_id
+      team_visitor_id
+      date
+    }
+  }
+`
+
+export default graphql(ALL_MATCHES_QUERY, { name: 'allMatchesQuery' }) (Matches)

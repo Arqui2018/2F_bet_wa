@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Grid} from 'semantic-ui-react';
 import Signin from './login/Signin'
-import Date from './Date'
+import Date from './date'
 import {graphql} from 'react-apollo';
 import gpl from 'graphql-tag';
 
@@ -59,7 +59,6 @@ class Matchedate extends Component {
     console.log(this.state)
   }
   getDay(){
-    //<Grid.Row>
       var days = []
       for(var i=14; i<29; i++){
         days.push(
@@ -69,7 +68,6 @@ class Matchedate extends Component {
         )
       }
       return days;
-    //</Grid.Row>
   }
   render() {
     return (
@@ -82,7 +80,7 @@ class Matchedate extends Component {
       {
         this.getDay()
       }
-      </Grid.Row>        
+      </Grid.Row>
     </Grid>
     )
   }
