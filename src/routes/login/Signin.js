@@ -16,6 +16,7 @@ export default({styles})=>{
             <input type="password" placeholder='Contraseña' />
           </Form.Field>
           <Button type='submit' primary fluid>Iniciar Sesión</Button>
+          
         </Form>
       </div>
     </div>
