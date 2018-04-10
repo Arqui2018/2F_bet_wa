@@ -37,12 +37,13 @@ export default({styles})=>{
         </Form.Group>
         <Form.Group widths='equal'>
           <Form.Field  control='input' label='Posible Ganancia' />
-          <Form.Field  control='input' label='Cantidad de Apuestas' />
+          <Form.Field  control='input' label='Cantidad de ...' />
         </Form.Group>
         <Accordion as={Form.Field} panels={panels} />
         <Button type='submit'>Submit</Button>
         <Divider hidden />
       </Form>
+
       </div>
     </div>
   )
