@@ -29,7 +29,7 @@ class Matches extends React.Component {
     const MatchesOnDay = this.selectMactchesByDate( Matches, this.props.day)
 
     return (
-      MatchesOnDay.map( mat => <Match match={mat} /> )
+      MatchesOnDay.map( mat => <Match key={mat.id} match={mat} /> )
     )
   }
 }

@@ -23,8 +23,8 @@ class Matchedate extends Component {
       var days = []
       for(var i=14; i<29; i++){
         days.push(
-          <Grid.Column>
-            <Date day={i}/>
+          <Grid.Column key={i}>
+            <Date key={i} day={i}/>
           </Grid.Column>
         )
       }
@@ -34,9 +34,9 @@ class Matchedate extends Component {
     return (
     <Grid  verticalAlign='middle' columns={3} centered style={styles.grid}>
       <img alt="ApuestaMundial" src='images/APUESTAMUNDIAL2.png'/>
-      <container>
+
         <h1>Seleccione la fecha del encuentro en el cual desea efectuar su apuesta</h1>
-      </container>
+
       <Grid.Row>
       {
         this.getDay()

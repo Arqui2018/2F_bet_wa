@@ -21,8 +21,7 @@ class Date extends Component {
     this.viewMatches = this.viewMatches.bind(this);
   }
   viewMatches(e) {
-    this.setState({clicked:!this.state.clicked});
-    console.log("clicked")
+    this.setState({clicked:!this.state.clicked});    
   }
 
   render() {
@@ -32,7 +31,7 @@ class Date extends Component {
           <h3 >Junio {this.state.day}</h3>
         </div>
         { this.state.clicked ?
-          <Matches day={this.state.day} />
+          <Matches key={this.state.day} day={this.state.day} />
           : <a href={null} onClick={this.viewMatches}>Ver Partidos</a>
         }
       </div>
