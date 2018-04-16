@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Form, Button,  Divider, Statistic, Icon } from "semantic-ui-react";
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Redirect } from 'react-router';
 
 const styles={
   grid:{
@@ -22,6 +23,7 @@ class Result extends Component {
   constructor(props){
     super(props);
     this.state={
+      redirect: false,
       gLocal: null,
       gVisitor: null,
       amount: 10000,
@@ -72,7 +74,9 @@ class Result extends Component {
       return <div>Error</div>
     }
     const balance = this.props.balanceQuery.walletById.balance;
-
+    if (this.state.redirect) {
+       return <Redirect to='/home' />;
+     }
     return(
       <div className="prueba">
         <div style={styles.box}>
@@ -119,6 +123,7 @@ class Result extends Component {
       </div>
     )
   }
+
   _makeBet = async () =>{
     const result = {
       g_local: parseInt(this.state.gLocal,10),
@@ -142,7 +147,7 @@ class Result extends Component {
         wallet
       }
     });
-
+    this.setState({redirect: true})
   }
 
 }
