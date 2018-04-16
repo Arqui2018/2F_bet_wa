@@ -10,6 +10,7 @@ import Login from './login';
 import Matchedate from './matchedate';
 import Matches from './matches';
 import Bet from './bet';
+import Profile from './profile';
 
 import 'semantic-ui-css/semantic.min.css';
 import '../css/main.css';
@@ -22,6 +23,7 @@ export default ()=>(
       <Route path="/matchedate" exact component={Matchedate}/>
       <Route path="/matches" exact component={Matches}/>
       <Route path="/bet" exact component={Bet}/>
+      <Route path="/profile" exact component={Profile}/>
 
     </Switch>
   </Router>

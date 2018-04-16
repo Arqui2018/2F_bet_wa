@@ -16,6 +16,7 @@ const styles={
     marginBottom:'1em',
     padding:'1em'
   }
+
 }
 
 class Bet extends React.Component {
