@@ -24,13 +24,12 @@ class Match extends Component {
             state: {
               local: teamLocal,
               visitor: teamVisitor,
-              matchId: matchId
+              matchId: matchId,
             }
         }}>
           <h4>{teamLocal} vs {teamVisitor}</h4>
         </Link>
-        Hora: {date.toLocaleTimeString()}
-
+        Hora: {date.toLocaleTimeString()}        
       </div>
     )
   }

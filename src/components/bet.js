@@ -46,7 +46,7 @@ class Bet extends Component {
     results.map( result => {
       mypool += result.amount
       return true;
-    });    
+    });
     return mypool;
   }
 
@@ -64,7 +64,8 @@ class Bet extends Component {
       bets: results,
       local: this.state.local,
       visitor: this.state.visitor,
-      pool: this.setPool(results)
+      pool: this.setPool(results),
+      matchId: this.state.matchId
     }
     return (
       <div>

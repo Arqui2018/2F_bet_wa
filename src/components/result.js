@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Form, Button,  Divider, Statistic, Icon} from "semantic-ui-react";
-import { graphql } from 'react-apollo';
+import {Form, Button,  Divider, Statistic, Icon } from "semantic-ui-react";
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const styles={
@@ -47,8 +47,8 @@ class Result extends Component {
       let pool = parseInt(this.state.pool,10);
       let amount = parseInt(this.state.amount,10);
       bets.map( bet =>{
-        if(bet.g_local===gLocal && bet.g_visit===gVisitor){
-          console.log('entro');
+        if(bet.g_local===gLocal && bet.g_visit===gVisitor)
+        {
           sum+=bet.amount;
           count++;
         }
@@ -65,14 +65,16 @@ class Result extends Component {
   }
 
   render(){
-    if (this.props.teamsMatchQuery && this.props.teamsMatchQuery.loading) {
+    if (this.props.balanceQuery && this.props.balanceQuery.loading) {
       return <Icon loading name='circle notched' />
     }
-    if (this.props.teamsMatchQuery && this.props.teamsMatchQuery.error) {
+    if (this.props.balanceQuery && this.props.balanceQuery.error) {
       return <div>Error</div>
     }
+    const balance = this.props.balanceQuery.walletById.balance;
+
     return(
-      <div>
+      <div className="prueba">
         <div style={styles.box}>
           <img alt="mascota" src='images/APUESTA MUNDIAL.png'/>
           <Form size="big" >
@@ -87,7 +89,7 @@ class Result extends Component {
             </div>
             <div style={styles.box}>
               <Form.Field  control='input' label='Monto de la apuesta' value={this.state.amount} readOnly />
-              <Form.Field  control='input' type='range' name='amount' min="10000" max="1000000" step="10000"
+              <Form.Field  control='input' type='range' name='amount' min="10000" max={balance} step="10000"
                   value={this.state.amount} onChange={this.handleChange} />
             </div>
             <div>
@@ -110,20 +112,69 @@ class Result extends Component {
               </Statistic>
               <br />
             </div>
-            <Button type='submit'>Submit</Button>
+            <Button type='submit' onClick={() => this._makeBet()}>Apostar</Button>
             <Divider hidden />
           </Form>
         </div>
       </div>
     )
   }
+  _makeBet = async () =>{
+    const result = {
+      g_local: parseInt(this.state.gLocal,10),
+      g_visit: parseInt(this.state.gVisitor,10),
+      amount: parseInt(this.state.amount,10),
+      match_id: this.props.data.matchId,
+      user_id: 2,
+      wallet_id: 2
+    }
+    const wallet = {
+      balance: (-1) * parseInt(this.state.amount,10),
+    }
+    await this.props.addResultMutation({
+      variables: {
+        result
+      }
+    });
+
+    await this.props.updateWalletMutation({
+      variables: {
+        wallet
+      }
+    });
+
+  }
+
 }
 
 const BALANCE_QUERY = gql`
-  query balance(){
-    walletById(id: 123){
+  query balance{
+    walletById(id: 2){
       balance
     }
   }
 `
-export default graphql(BALANCE_QUERY, { name: 'balanceQuery' }) (Result);
+
+const ADD_RESULT = gql`
+  mutation createResult($result: ResultInput!){
+    createResult(result: $result){
+      id,
+      user_id,
+      match_id
+    }
+  }
+`;
+
+const UPDATE_WALLET = gql`
+  mutation updateWallet($wallet: WalletInput!){
+    updateWallet(id: 2, wallet: $wallet) {
+      balance
+    }
+  }
+`;
+
+export default compose(
+  graphql(BALANCE_QUERY, { name: 'balanceQuery' }),
+  graphql(ADD_RESULT, { name: 'addResultMutation' }),
+  graphql(UPDATE_WALLET, { name: 'updateWalletMutation' }),
+)(Result)
