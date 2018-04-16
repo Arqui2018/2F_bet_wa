@@ -7,8 +7,7 @@ import {
 
 import Login from '../components/login';
 import Matchedate from '../components/matchedate';
-import Bet from '../components/bet';
-
+import Bet from '../components/bet'
 
 import 'semantic-ui-css/semantic.min.css';
 import '../css/main.css';

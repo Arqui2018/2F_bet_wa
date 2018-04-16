@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Grid} from 'semantic-ui-react';
 import Date from './date';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const styles={
   grid:{
@@ -46,5 +48,7 @@ class Matchedate extends Component {
     )
   }
 }
+
+
 
 export default Matchedate

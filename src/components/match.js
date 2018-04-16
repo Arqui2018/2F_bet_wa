@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import { Link } from 'react-router-dom'
+import { Icon } from 'semantic-ui-react';
 
 class Match extends Component {
-  
+
   render() {
     if (this.props.teamsMatchQuery && this.props.teamsMatchQuery.loading) {
-      return <div>Loading</div>
+      return <Icon loading name='circle notched' />
     }
     if (this.props.teamsMatchQuery && this.props.teamsMatchQuery.error) {
       return <div>Error</div>
@@ -14,11 +16,21 @@ class Match extends Component {
     let teamLocal = this.props.teamsMatchQuery.team_local.name
     let teamVisitor = this.props.teamsMatchQuery.team_visitor.name
     let date = new Date(this.props.match.date)
-    //Hora: {date.getHours()}:{date.getMinutes()}:{date.getSeconds()}
+    let matchId = this.props.match.id
     return (
       <div>
-        <h4>{teamLocal} vs {teamVisitor}</h4>
+        <Link to={{
+            pathname: '/bet',
+            state: {
+              local: teamLocal,
+              visitor: teamVisitor,
+              matchId: matchId
+            }
+        }}>
+          <h4>{teamLocal} vs {teamVisitor}</h4>
+        </Link>
         Hora: {date.toLocaleTimeString()}
+
       </div>
     )
   }

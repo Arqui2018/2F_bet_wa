@@ -1,50 +1,129 @@
-import React from "react";
-import {Accordion, Form, Button,  Divider} from "semantic-ui-react";
+import React, { Component } from 'react';
+import {Form, Button,  Divider, Statistic, Icon} from "semantic-ui-react";
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
-const panels = [
-  {
-    title: 'Optional Details',
-    content: {
-      as: Form.Input,
-      key: 'content',
-      label: 'Algo',
-      placeholder: 'Algo',
-    },
+const styles={
+  grid:{
+    height:'100',
+    width:'900px',
+    margin:'0 auto',
   },
-]
-
-
-export default({styles})=>{
-  return(
-    <div>
-      <div style={styles.box}>
-        <img alt="mascota" src='images/APUESTA MUNDIAL.png'/>
-        <Form size="big" >
-        <Form.Group widths='equal'>
-          <Form.Field  control='input' label='Colombia' />
-          <Form.Field  control='input' label='Polonia' />
-        </Form.Group>
-        <container>
-          <form name="miform" id="miform" method="get">
-          10000 <input type="range" name="misnumeros" id="misnumeros" min="10000" max="100000" step="5000"></input> 100000
-
-          </form>
-        </container>
-
-        <Form.Group widths='equal'>
-          <Form.Field  control='input' label='pozo' />
-          <Form.Field  control='input' label='Numero de apuestas' />
-        </Form.Group>
-        <Form.Group widths='equal'>
-          <Form.Field  control='input' label='Posible Ganancia' />
-          <Form.Field  control='input' label='Cantidad de ...' />
-        </Form.Group>
-        <Accordion as={Form.Field} panels={panels} />
-        <Button type='submit'>Submit</Button>
-        <Divider hidden />
-      </Form>
-
-      </div>
-    </div>
-  )
+  box:{
+    backgroundColor: 'white',
+    border:'1px solid #e6e6e6',
+    textAlign:'center',
+    marginBottom:'1em',
+    padding:'1em'
+  }
 }
+
+class Result extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      gLocal: null,
+      gVisitor: null,
+      amount: 10000,
+      posibleWinnings: 0,
+      numBets: 0,
+      bets: props.data.bets,
+      pool: props.data.pool*0.9
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange (e) {
+    var bets = this.state.bets;
+    const target=e.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({ [name]:value });
+
+    if(this.state.gLocal && this.state.gVisitor){
+      let count = 0, sum = 0;
+      let gLocal= parseInt(this.state.gLocal,10);
+      let gVisitor=parseInt(this.state.gVisitor,10);
+      let pool = parseInt(this.state.pool,10);
+      let amount = parseInt(this.state.amount,10);
+      bets.map( bet =>{
+        if(bet.g_local===gLocal && bet.g_visit===gVisitor){
+          console.log('entro');
+          sum+=bet.amount;
+          count++;
+        }
+        return true
+      });
+      sum+=amount;
+      let result= parseInt((0.9*pool)*(amount/sum),10);
+      this.setState({
+        posibleWinnings: result,
+        numBets: count
+      });
+    }
+
+  }
+
+  render(){
+    if (this.props.teamsMatchQuery && this.props.teamsMatchQuery.loading) {
+      return <Icon loading name='circle notched' />
+    }
+    if (this.props.teamsMatchQuery && this.props.teamsMatchQuery.error) {
+      return <div>Error</div>
+    }
+    return(
+      <div>
+        <div style={styles.box}>
+          <img alt="mascota" src='images/APUESTA MUNDIAL.png'/>
+          <Form size="big" >
+            <div style={styles.box}>
+              <h3>Marcador</h3>
+              <Form.Group widths='equal'>
+                <Form.Field  control='input' name='gLocal' label={this.props.data.local} type='number' min='0'
+                  onChange={this.handleChange} placeholder='Goles Equipo Local' required />
+                <Form.Field  control='input' name='gVisitor' label={this.props.data.visitor} type='number' min='0'
+                  onChange={this.handleChange} placeholder='Goles Equipo visitante' required />
+              </Form.Group>
+            </div>
+            <div style={styles.box}>
+              <Form.Field  control='input' label='Monto de la apuesta' value={this.state.amount} readOnly />
+              <Form.Field  control='input' type='range' name='amount' min="10000" max="1000000" step="10000"
+                  value={this.state.amount} onChange={this.handleChange} />
+            </div>
+            <div>
+              <Statistic.Group>
+                <Statistic size='mini'>
+                  <Statistic.Value>{this.state.posibleWinnings}</Statistic.Value>
+                  <Statistic.Label>Posible Ganancia</Statistic.Label>
+                </Statistic>
+                <Statistic size='mini'>
+                  <Statistic.Value>{this.state.numBets}</Statistic.Value>
+                  <Statistic.Label>Apuestas <br />con el mismo marcador</Statistic.Label>
+                </Statistic>
+              </Statistic.Group>
+              <br />
+            </div>
+            <div>
+              <Statistic size='small'>
+                <Statistic.Value><Icon name='money' color='green' />{this.state.pool}</Statistic.Value>
+                <Statistic.Label>Pozo</Statistic.Label>
+              </Statistic>
+              <br />
+            </div>
+            <Button type='submit'>Submit</Button>
+            <Divider hidden />
+          </Form>
+        </div>
+      </div>
+    )
+  }
+}
+
+const BALANCE_QUERY = gql`
+  query balance(){
+    walletById(id: 123){
+      balance
+    }
+  }
+`
+export default graphql(BALANCE_QUERY, { name: 'balanceQuery' }) (Result);
