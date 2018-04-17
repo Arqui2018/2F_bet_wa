@@ -6,7 +6,7 @@ import { Redirect } from 'react-router';
 
 const styles={
   grid:{
-    height:'100',
+    height:'100%',
     width:'900px',
     margin:'0 auto',
   },

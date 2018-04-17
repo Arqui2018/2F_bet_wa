@@ -13,7 +13,7 @@ const styles={
   },
   grid1:{
     height:'100%',
-    width:'300px',
+    width:'450px',
     margin:'0 auto',
   },
   box:{
@@ -79,7 +79,7 @@ class Bet extends Component {
             <Grid.Column>
               <Result styles={styles} data={data} />
             </Grid.Column>
-            <Grid.Column >
+            <Grid.Column verticalAlign='middle' centered style={styles.grid1}>
               <img alt="mascotaMundial" src="images/mascota.jpg"/>
             </Grid.Column>
           </Grid.Row>
