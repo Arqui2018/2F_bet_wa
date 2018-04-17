@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Form, Button,  Divider, Statistic, Icon } from "semantic-ui-react";
+import {Form, Button,  Divider, Statistic, Icon, Grid } from "semantic-ui-react";
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Redirect } from 'react-router';
 
 const styles={
   grid:{
@@ -15,6 +16,13 @@ const styles={
     textAlign:'center',
     marginBottom:'1em',
     padding:'1em'
+  },
+  box1:{
+    backgroundColor: '#f8f8f9',
+    border:'1px solid #e6e6e6',
+    textAlign:'center',
+    marginBottom:'1em',
+    padding:'1em'
   }
 }
 
@@ -22,6 +30,7 @@ class Result extends Component {
   constructor(props){
     super(props);
     this.state={
+      redirect: false,
       gLocal: null,
       gVisitor: null,
       amount: 10000,
@@ -44,8 +53,8 @@ class Result extends Component {
       let count = 0, sum = 0;
       let gLocal= parseInt(this.state.gLocal,10);
       let gVisitor=parseInt(this.state.gVisitor,10);
-      let pool = parseInt(this.state.pool,10);
       let amount = parseInt(this.state.amount,10);
+      let pool = parseInt(this.state.pool,10);
       bets.map( bet =>{
         if(bet.g_local===gLocal && bet.g_visit===gVisitor)
         {
@@ -55,7 +64,7 @@ class Result extends Component {
         return true
       });
       sum+=amount;
-      let result= parseInt((0.9*pool)*(amount/sum),10);
+      let result= parseInt((pool+amount*0.9)*(amount/sum),10);
       this.setState({
         posibleWinnings: result,
         numBets: count
@@ -72,7 +81,9 @@ class Result extends Component {
       return <div>Error</div>
     }
     const balance = this.props.balanceQuery.walletById.balance;
-
+    if (this.state.redirect) {
+       return <Redirect to='/home' />;
+     }
     return(
       <div className="prueba">
         <div style={styles.box}>
@@ -96,7 +107,7 @@ class Result extends Component {
               <Statistic.Group>
                 <Statistic size='mini'>
                   <Statistic.Value>{this.state.posibleWinnings}</Statistic.Value>
-                  <Statistic.Label>Posible Ganancia</Statistic.Label>
+                  <Statistic.Label> <br /> Posible Ganancia</Statistic.Label>
                 </Statistic>
                 <Statistic size='mini'>
                   <Statistic.Value>{this.state.numBets}</Statistic.Value>
@@ -106,10 +117,14 @@ class Result extends Component {
               <br />
             </div>
             <div>
-              <Statistic size='small'>
-                <Statistic.Value><Icon name='money' color='green' />{this.state.pool}</Statistic.Value>
-                <Statistic.Label>Pozo</Statistic.Label>
-              </Statistic>
+              <div style={styles.box1}>
+                <Grid.Row>
+                  <Statistic size='small'>
+                    <Statistic.Value><Icon name='money' color='green' />{this.state.pool}</Statistic.Value>
+                    <Statistic.Label>Pozo</Statistic.Label>
+                  </Statistic>
+                </Grid.Row>
+              </div>
               <br />
             </div>
             <Button type='submit' onClick={() => this._makeBet()}>Apostar</Button>
@@ -119,6 +134,7 @@ class Result extends Component {
       </div>
     )
   }
+
   _makeBet = async () =>{
     const result = {
       g_local: parseInt(this.state.gLocal,10),
@@ -142,7 +158,7 @@ class Result extends Component {
         wallet
       }
     });
-
+    this.setState({redirect: true})
   }
 
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
-import { Redirect } from 'react-route-dom';
+
 
 export default class Toolbar extends Component {
   state = {}
@@ -9,27 +9,27 @@ export default class Toolbar extends Component {
 
   render() {
     const { activeItem } = this.state
-    if(this.state.name==='home'){
-      return <Redirect to="/home" />
-    }
+
     return (
       <Menu color='red' stackable inverted >
         <Menu.Item>
           <img src='images/Logo.png' />
         </Menu.Item>
 
+
         <Menu.Item
           name='home'
           active={activeItem === 'home'}
-          onClick={this.handleItemClick}
-        >
-          Inicio
-        </Menu.Item>
+          href='http://localhost:3000/home'
+          >
+            Inicio
+          </Menu.Item>
 
         <Menu.Item
           name='profile'
           active={activeItem === 'profile'}
           onClick={this.handleItemClick}
+          href='http://localhost:3000/profile'
         >
           Perfil
         </Menu.Item>

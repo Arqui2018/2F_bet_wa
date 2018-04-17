@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {Grid} from 'semantic-ui-react';
 import Date from './date';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import Toolbar from './toolbar';
 
 const styles={
   grid:{
@@ -35,7 +32,7 @@ class Matchedate extends Component {
   }
   render() {
     return (
-      
+
 
     <Grid  verticalAlign='middle' columns={3} centered style={styles.grid}>
       <img alt="ApuestaMundial" src='images/APUESTAMUNDIAL2.png'/>
@@ -51,7 +48,5 @@ class Matchedate extends Component {
     )
   }
 }
-
-
 
 export default Matchedate
