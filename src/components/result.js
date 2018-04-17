@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Form, Button,  Divider, Statistic, Icon, Grid } from "semantic-ui-react";
+import {Form, Button,  Divider, Statistic, Icon, Grid, Step } from "semantic-ui-react";
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Redirect } from 'react-router';
@@ -104,16 +104,22 @@ class Result extends Component {
                   value={this.state.amount} onChange={this.handleChange} />
             </div>
             <div>
-              <Statistic.Group>
-                <Statistic size='mini'>
+              {/* <Statistic.Group> */}
+                <Step.Group size='big'>
+                  <Step title='Posible Ganancia' description={this.state.posibleWinnings} />
+                  <Step title='Apuestas a este marcador' description={this.state.numBets} />
+                </Step.Group>
+                {/* <Statistic size='mini'>
                   <Statistic.Value>{this.state.posibleWinnings}</Statistic.Value>
                   <Statistic.Label> <br /> Posible Ganancia</Statistic.Label>
-                </Statistic>
-                <Statistic size='mini'>
+                </Statistic> */}
+
+
+                {/* <Statistic size='mini'>
                   <Statistic.Value>{this.state.numBets}</Statistic.Value>
                   <Statistic.Label>Apuestas <br />con el mismo marcador</Statistic.Label>
-                </Statistic>
-              </Statistic.Group>
+                </Statistic> */}
+              {/* </Statistic.Group> */}
               <br />
             </div>
             <div>
