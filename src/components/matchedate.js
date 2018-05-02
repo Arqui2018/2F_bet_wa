@@ -39,6 +39,8 @@ class Matchedate extends Component {
     }
 
     return (
+
+
     <Grid  verticalAlign='middle' columns={3} centered style={styles.grid}>
       <img alt="ApuestaMundial" src='images/APUESTAMUNDIAL2.png'/>
 

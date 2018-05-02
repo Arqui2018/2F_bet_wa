@@ -1,6 +1,7 @@
 import React from 'react';
 import {Grid} from 'semantic-ui-react';
 import Signin from './login/Signin'
+import Toolbar from './toolbar'
 import '../css/main.css';
 
 const styles={
@@ -21,12 +22,14 @@ const styles={
 class Login extends React.Component {
   render() {
     return (
+
     <Grid  verticalAlign='middle' columns={2} centered style={styles.grid}>
       <Grid.Row>
         <Grid.Column>
           <img alt="LogoMundial" src="images/fifawordcup.jpg"/>
         </Grid.Column>
         <Grid.Column>
+          <Toolbar/>
           <Signin styles={styles}/>
         </Grid.Column>
       </Grid.Row>

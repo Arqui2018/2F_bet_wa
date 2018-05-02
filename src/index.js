@@ -8,6 +8,7 @@ import {
   HttpLink,
   InMemoryCache
 } from "apollo-boost";
+import Toolbar from './components/toolbar';
 
 const client = new ApolloClient ({
   link: new HttpLink ({uri: "http://104.42.172.100/graphql"}),
@@ -16,6 +17,7 @@ const client = new ApolloClient ({
 
 const App =
 <ApolloProvider client={client}>
+  <Toolbar/>
   <Routes />
 </ApolloProvider>
 
