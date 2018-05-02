@@ -13,7 +13,7 @@ export default class Toolbar extends Component {
     return (
       <Menu color='red' stackable inverted >
         <Menu.Item>
-          <img src='images/Logo.png' />
+          <img alt='logo Apuesta Mundial' src='images/Logo.png' />
         </Menu.Item>
 
 

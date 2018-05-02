@@ -6,7 +6,7 @@ export default({styles})=>{
   return(
     <div>
       <div style={styles.box}>
-        <img src='images/mapa.png'/>
+        <img alt='mapa' src='images/mapa.png'/>
         <Message icon>
           <Icon color='blue' name='user'  />
           <Message.Content>
