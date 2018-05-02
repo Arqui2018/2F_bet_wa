@@ -1,1 +1,1 @@
-export const TOKEN='w7mbZfzGfXhzAARkmfWT' ;
+export const TOKEN='' ;

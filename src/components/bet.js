@@ -4,6 +4,8 @@ import Result from './result'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import '../css/main.css';
+import { Redirect } from 'react-router';
+import {TOKEN} from "../variables"
 
 const styles={
   grid:{
@@ -51,6 +53,10 @@ class Bet extends Component {
   }
 
   render() {
+    const token = localStorage.getItem(TOKEN);
+    if(!token){
+      return <Redirect to='/login' />;
+    }
     if (this.props.resultsQuery && this.props.resultsQuery.loading) {
       return <div>Loading</div>
     }

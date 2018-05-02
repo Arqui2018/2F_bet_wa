@@ -10,7 +10,7 @@ import {
 } from "apollo-boost";
 
 const client = new ApolloClient ({
-  link: new HttpLink ({uri: "http://35.194.70.72:4000/graphql"}),
+  link: new HttpLink ({uri: "http://104.42.172.100/graphql"}),
   cache: new InMemoryCache()
  });
 

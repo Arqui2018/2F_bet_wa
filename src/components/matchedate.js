@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Grid} from 'semantic-ui-react';
 import Date from './date';
+import { Redirect } from 'react-router';
+import {TOKEN} from "../variables"
 
 const styles={
   grid:{
@@ -31,6 +33,11 @@ class Matchedate extends Component {
       return days;
   }
   render() {
+    const token = localStorage.getItem(TOKEN);
+    if(!token){
+      return <Redirect to='/login' />;
+    }
+
     return (
     <Grid  verticalAlign='middle' columns={3} centered style={styles.grid}>
       <img alt="ApuestaMundial" src='images/APUESTAMUNDIAL2.png'/>
