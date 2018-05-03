@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './routes';
+import { TOKEN } from "./variables"
 import registerServiceWorker from './registerServiceWorker';
 import { ApolloProvider } from "react-apollo";
 import {
@@ -15,9 +16,10 @@ const client = new ApolloClient ({
   cache: new InMemoryCache()
  });
 
+const token = localStorage.getItem(TOKEN);
 const App =
 <ApolloProvider client={client}>
-  <Toolbar/>
+  <Toolbar token={token}/>
   <Routes />
 </ApolloProvider>
 

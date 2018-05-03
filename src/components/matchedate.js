@@ -37,15 +37,11 @@ class Matchedate extends Component {
     if(!token){
       return <Redirect to='/login' />;
     }
-
+    
     return (
-
-
     <Grid  verticalAlign='middle' columns={3} centered style={styles.grid}>
       <img alt="ApuestaMundial" src='images/APUESTAMUNDIAL2.png'/>
-
-        <h1>Seleccione la fecha del encuentro en el cual desea efectuar su apuesta</h1>
-
+      <h1>Seleccione la fecha del encuentro en el cual desea efectuar su apuesta</h1>
       <Grid.Row>
       {
         this.getDay()

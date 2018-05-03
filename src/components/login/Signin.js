@@ -29,7 +29,7 @@ class Signin extends Component {
   }
   render(){
     if (this.state.login) {
-       return <Redirect to='/home' />;
+      <Redirect push to='/home' />;      
     }
     return(
       <div>
@@ -59,7 +59,6 @@ class Signin extends Component {
       email: this.state.email,
       password: this.state.password
     }
-    console.log(user);
     const result = await this.props.createSessisonMutation({
       variables: {
         user
@@ -68,7 +67,7 @@ class Signin extends Component {
     const token= result.data.createSession.authentication_token
     if(token){
       localStorage.setItem(TOKEN, token)
-      this.setState({login: true})
+      this.setState({login: true});
     }
   }
 }
