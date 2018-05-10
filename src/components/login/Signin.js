@@ -3,7 +3,7 @@ import {Form, Button} from "semantic-ui-react";
 import {TOKEN} from "../../variables"
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 const styles={
   grid:{
@@ -28,10 +28,15 @@ class Signin extends Component {
     password: ''
   }
   render(){
+    console.log("uno "+this.state.login);
     if (this.state.login) {
-      <Redirect push to='/home' />;      
+      console.log("dos "+this.state.login);
+      return(<Redirect to='/' />)
     }
+
+
     return(
+
       <div>
         <div style={styles.box}>
           <img alt="Logo" src='images/APUESTA MUNDIAL.png' />
@@ -53,6 +58,7 @@ class Signin extends Component {
         </div>
       </div>
     )
+    console.log(this.state.login);
   }
   _signin = async() =>{
     const user = {

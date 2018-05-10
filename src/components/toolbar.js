@@ -20,7 +20,7 @@ class Toolbar extends Component {
   render() {
     const token = this.state.token;
     const { activeItem } = this.state;
-    return (      
+    return (
       <Menu color='red' stackable inverted >
         <Menu.Item>
           <img alt='logo Apuesta Mundial' src='images/Logo.png' />
@@ -30,7 +30,7 @@ class Toolbar extends Component {
         <Menu.Item
           name='home'
           active={activeItem === 'home'}
-          href='http://localhost:3000/home'
+          href='http://localhost:3000/'
         >
           Inicio
         </Menu.Item>
@@ -50,9 +50,9 @@ class Toolbar extends Component {
               name='logout'
               position='right'
               active={activeItem === 'logout'}
-              onClick={() => this._logout()}
+              href='http://localhost:3000/logout'
             >
-              Logout
+              Salir
             </Menu.Item>
           )
         }
@@ -60,22 +60,26 @@ class Toolbar extends Component {
     )
   }
 
-  _logout = async() => {
-    const token = localStorage.getItem(TOKEN);
-    await this.props.deleteSessionMutation({
-      variables:{
-        token
-      }
-    });
-    localStorage.removeItem(TOKEN);
-    this.setState({ login: false });
-    window.location.reload()
+  _logout = () => {
+
   }
+
+  // _logout = async() => {
+  //   const token = localStorage.getItem(TOKEN);
+  //   await this.props.deleteSessionMutation({
+  //     variables:{
+  //       token
+  //     }
+  //   });
+  //   localStorage.removeItem(TOKEN);
+  //   this.setState({ login: false });
+  //   window.location.reload()
+  // }
 
 }
 
 const DELETE_SESSION = gql`
-  mutation deleteSession($token: String!){
+  mutation destroySession($token: String!){
     removeSession(token: $token) {
       id
     }
