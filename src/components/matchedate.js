@@ -34,10 +34,10 @@ class Matchedate extends Component {
   }
   render() {
     const token = localStorage.getItem(TOKEN);
-    if(!token){
+    if(!token || token==='none'){
       return <Redirect to='/login' />;
     }
-    
+
     return (
     <Grid  verticalAlign='middle' columns={3} centered style={styles.grid}>
       <img alt="ApuestaMundial" src='images/APUESTAMUNDIAL2.png'/>

@@ -59,7 +59,7 @@ class Bet extends Component {
 
   render() {
     const token = localStorage.getItem(TOKEN);
-    if(!token){
+    if(!token || token==='none'){
       return <Redirect to='/login' />;
     }
     if (this.props.resultsQuery && this.props.resultsQuery.loading) {

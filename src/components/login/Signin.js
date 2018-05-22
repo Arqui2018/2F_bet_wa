@@ -71,7 +71,7 @@ class Signin extends Component {
       }
     });
     const token= result.data.createSession.authentication_token
-    if(token){
+    if(token !== 'none'){
       localStorage.setItem(TOKEN, token)
       this.setState({login: true});
     }

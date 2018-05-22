@@ -82,7 +82,7 @@ class Result extends Component {
     }
     const balance = this.props.balanceQuery.walletById.balance;
     if (this.state.redirect) {
-       return <Redirect to='/home' />;
+       return <Redirect to='/' />;
      }
     return(
       <div className="prueba">
