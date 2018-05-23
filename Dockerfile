@@ -16,8 +16,9 @@ RUN yarn install
 #RUN npm install -g serve
 
 # Set the command to start the node server.
-#CMD serve -s build -p 5200
-CMD yarn start  -p 5200
+#CMD serve -s build -p 5000
+CMD yarn start  -p 5000
 
 # Tell Docker about the port we'll run on.
 #EXPOSE 5200
+#EXPOSE 5000
