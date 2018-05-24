@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
-import { Redirect } from 'react-router';
+import React, { Component } from 'react';
+import { Menu } from 'semantic-ui-react';
 import { TOKEN } from "../variables"
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -50,8 +49,7 @@ class Toolbar extends Component {
               name='logout'
               position='right'
               active={activeItem === 'logout'}
-              href='http://localhost:3000/logout'
-            >
+              href='http://localhost:3000/logout' >
               Salir
             </Menu.Item>
           )
@@ -60,22 +58,17 @@ class Toolbar extends Component {
     )
   }
 
-  _logout = () => {
-
+  _logout = async() => {
+    const token = localStorage.getItem(TOKEN);
+    await this.props.deleteSessionMutation({
+      variables:{
+        token
+      }
+    });
+    localStorage.removeItem(TOKEN);
+    this.setState({ login: false });
+    window.location.reload()
   }
-
-  // _logout = async() => {
-  //   const token = localStorage.getItem(TOKEN);
-  //   await this.props.deleteSessionMutation({
-  //     variables:{
-  //       token
-  //     }
-  //   });
-  //   localStorage.removeItem(TOKEN);
-  //   this.setState({ login: false });
-  //   window.location.reload()
-  // }
-
 }
 
 const DELETE_SESSION = gql`
@@ -88,11 +81,3 @@ const DELETE_SESSION = gql`
 
 
 export default graphql(DELETE_SESSION, {name: 'deleteSessionMutation'}) (Toolbar)
-// import {
-//   Link,
-// } from "react-router-dom";
-//
-// export default ()=> [
-//   <Link to="/">Home</Link>,
-//   <Link to="/register">Register</Link>
-// ]

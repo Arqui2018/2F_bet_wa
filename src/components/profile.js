@@ -35,7 +35,7 @@ class Profile extends React.Component {
           <Data styles={styles}/>
         </Grid.Column>
         <Grid.Column>
-          <img src="images/trofeo.png"/>
+          <img alt="trofeo" src="images/trofeo.png"/>
         </Grid.Column>
         <Grid.Column>
           <MyBets styles={styles}/>

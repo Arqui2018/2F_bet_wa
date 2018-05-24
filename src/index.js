@@ -19,8 +19,10 @@ const client = new ApolloClient ({
 const token = localStorage.getItem(TOKEN);
 const App =
 <ApolloProvider client={client}>
-  <Toolbar token={token}/>
-  <Routes />
+  <div>
+    <Toolbar token={token}/>
+    <Routes />
+  </div>
 </ApolloProvider>
 
 ReactDOM.render(App, document.getElementById('root'));
