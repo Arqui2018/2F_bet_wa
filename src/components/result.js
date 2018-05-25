@@ -3,6 +3,8 @@ import {Form, Button,  Divider, Statistic, Icon, Grid } from "semantic-ui-react"
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Redirect } from 'react-router';
+import { TOKEN } from '../variables'
+import { client } from '../index'
 
 const styles={
   grid:{
@@ -26,6 +28,43 @@ const styles={
   }
 }
 
+const DATA_USER = gql`
+  query sessionByToken($token: String!){
+    sessionByToken(token: $token){
+    	id,
+      wallet_id,
+      name,
+      nickname
+    }
+  }
+`;
+
+const BALANCE_QUERY = gql`
+  query balance($id: Int!){
+    walletById(id: $id){
+      balance
+    }
+  }
+`;
+
+const ADD_RESULT = gql`
+  mutation createResult($result: ResultInput!){
+    createResult(result: $result){
+      id,
+      user_id,
+      match_id
+    }
+  }
+`;
+
+const UPDATE_WALLET = gql`
+  mutation updateWallet($id: Int!, $wallet: WalletInput!){
+    updateWallet(id: $id, wallet: $wallet) {
+      balance
+    }
+  }
+`;
+
 class Result extends Component {
   constructor(props){
     super(props);
@@ -40,6 +79,23 @@ class Result extends Component {
       pool: props.data.pool*0.9
     };
     this.handleChange = this.handleChange.bind(this);
+
+    const token = localStorage.getItem(TOKEN);
+    // Se obtienen los datos del usuario y se guardan en el estado
+    client.query({
+      query: DATA_USER,variables: {token},
+    }).then(data => {this.setState({
+        id: parseInt(data.data.sessionByToken.id,10),
+        walletId: parseInt(data.data.sessionByToken.wallet_id,10)
+      });
+      //Esperamos a obtener el wallet_Id asociado al usuario y luego consultamos el saldo
+      //Es necesrio hacer la consult anidada para asegurarnos que existe el walletId
+      const walletId=parseInt(data.data.sessionByToken.wallet_id,10);
+      client.query({
+        query: BALANCE_QUERY, variables: { id: walletId},
+      }).then(ans => this.setState({balance: ans.data.walletById.balance})
+      ).catch(error => console.error(error))
+    }).catch(error => console.error(error))
   }
 
   handleChange (e) {
@@ -74,13 +130,6 @@ class Result extends Component {
   }
 
   render(){
-    if (this.props.balanceQuery && this.props.balanceQuery.loading) {
-      return <Icon loading name='circle notched' />
-    }
-    if (this.props.balanceQuery && this.props.balanceQuery.error) {
-      return <div>Error</div>
-    }
-    const balance = this.props.balanceQuery.walletById.balance;
     if (this.state.redirect) {
        return <Redirect to='/' />;
      }
@@ -100,7 +149,7 @@ class Result extends Component {
             </div>
             <div style={styles.box}>
               <Form.Field  control='input' label='Monto de la apuesta' value={this.state.amount} readOnly />
-              <Form.Field  control='input' type='range' name='amount' min="10000" max={balance} step="10000"
+              <Form.Field  control='input' type='range' name='amount' min="10000" max={this.state.balance} step="10000"
                   value={this.state.amount} onChange={this.handleChange} />
             </div>
             <div>
@@ -141,56 +190,34 @@ class Result extends Component {
       g_visit: parseInt(this.state.gVisitor,10),
       amount: parseInt(this.state.amount,10),
       match_id: this.props.data.matchId,
-      user_id: 2,
-      wallet_id: 2
+      user_id: this.state.id,
+      wallet_id: this.state.walletId
     }
+    const id= this.state.walletId;
     const wallet = {
-      balance: (-1) * parseInt(this.state.amount,10),
+      balance: (-1) * parseInt(this.state.amount,10)
     }
+    console.log("--------Iniciando------");
     await this.props.addResultMutation({
       variables: {
         result
       }
     });
-
+    console.log("--------Add Result Terminada------");
     await this.props.updateWalletMutation({
       variables: {
+        id,
         wallet
       }
     });
+    console.log("--------update wallet Terminada------");
     this.setState({redirect: true})
   }
 
 }
 
-const BALANCE_QUERY = gql`
-  query balance{
-    walletById(id: 2){
-      balance
-    }
-  }
-`
-
-const ADD_RESULT = gql`
-  mutation createResult($result: ResultInput!){
-    createResult(result: $result){
-      id,
-      user_id,
-      match_id
-    }
-  }
-`;
-
-const UPDATE_WALLET = gql`
-  mutation updateWallet($wallet: WalletInput!){
-    updateWallet(id: 2, wallet: $wallet) {
-      balance
-    }
-  }
-`;
-
 export default compose(
-  graphql(BALANCE_QUERY, { name: 'balanceQuery' }),
+  //graphql(BALANCE_QUERY, { name: 'balanceQuery' }),
   graphql(ADD_RESULT, { name: 'addResultMutation' }),
   graphql(UPDATE_WALLET, { name: 'updateWalletMutation' }),
 )(Result)

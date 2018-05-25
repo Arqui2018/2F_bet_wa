@@ -11,8 +11,9 @@ import {
 } from "apollo-boost";
 import Toolbar from './components/toolbar';
 
-const client = new ApolloClient ({
-  link: new HttpLink ({uri: "http://104.198.91.25/graphql"}),
+export const client = new ApolloClient ({
+  //link: new HttpLink ({uri: "http://104.198.91.25/graphql"}),
+  link: new HttpLink ({uri: "http://40.112.162.226/graphql"}),
   cache: new InMemoryCache()
  });
 
