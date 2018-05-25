@@ -12,8 +12,8 @@ import {
 import Toolbar from './components/toolbar';
 
 export const client = new ApolloClient ({
-  //link: new HttpLink ({uri: "http://104.198.91.25/graphql"}),
-  link: new HttpLink ({uri: "http://40.112.162.226/graphql"}),
+  link: new HttpLink ({uri: "http://104.198.91.25/graphql"}),
+  //link: new HttpLink ({uri: "http://40.112.162.226/graphql"}),
   cache: new InMemoryCache()
  });
 
