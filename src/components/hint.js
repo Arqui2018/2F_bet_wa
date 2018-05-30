@@ -78,8 +78,24 @@ export default class Hint extends Component {
   }
 
   async doMagic() {
-    const optionOne = parseInt(this.state.value[0] * this.state.probabilities[0] + this.state.value[1] * this.state.probabilities[1] + this.teams[this.state.teamLocal], 10);
-    const optionTwo = parseInt(this.state.value[1] * this.state.probabilities[0] + this.state.value[2] * this.state.probabilities[1] + this.teams[this.state.teamVisitor], 10);
+    if (!(this.state.teamLocal && this.state.teamVisitor)) {
+      await swal('Por favor seleccione los equipos');
+      return;
+    }
+
+    if (!this.state.values.reduce((accum, value) => accum && !isNaN(value), true)) {
+      await swal('Hay un error con los valores');
+      return;
+    }
+
+    if (Math.round(this.state.probabilities[0] + this.state.probabilities[1]) ) {
+      await swal('Hay un error con las probabilidades');
+      return;
+    }
+
+
+    const optionOne = parseInt(this.state.values[0] * this.state.probabilities[0] + this.state.values[1] * this.state.probabilities[1] + this.teams[this.state.teamLocal], 10);
+    const optionTwo = parseInt(this.state.values[2] * this.state.probabilities[0] + this.state.values[3] * this.state.probabilities[1] + this.teams[this.state.teamVisitor], 10);
 
     if (optionOne > optionTwo) {
       await swal(`Yo apostaria por ${this.state.teamLocal}`);
