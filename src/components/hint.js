@@ -245,7 +245,7 @@ export default class Hint extends Component {
           </Grid.Column>
           <Grid.Column>
             <Button primary fluid onClick={this.doMagic}>
-              <Icon name='home' /> Aconsejar
+              <Icon name='money' /> Aconsejar
             </Button>
           </Grid.Column>
           <Grid.Column>
