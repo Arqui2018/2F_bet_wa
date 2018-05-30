@@ -10,6 +10,6 @@ services:
       - '.:/usr/src/app'
       - '/usr/src/app/node_modules'
     ports:
-      - '85:85'
+      - '3000:3000'
     environment:
       - NODE_ENV=development

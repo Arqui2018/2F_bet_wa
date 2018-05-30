@@ -29,7 +29,7 @@ class Toolbar extends Component {
         <Menu.Item
           name='home'
           active={activeItem === 'home'}
-          href='http://localhost:3000/'
+          href='/'
         >
           Inicio
         </Menu.Item>
@@ -38,9 +38,19 @@ class Toolbar extends Component {
             <Menu.Item
               name='profile'
               active={activeItem === 'profile'}
-              href='http://localhost:3000/profile'
+              href='profile'
             >
               Perfil
+            </Menu.Item>
+          )
+        }
+        {token && (
+            <Menu.Item
+              name='hint'
+              active={activeItem === 'hint'}
+              href="hint"
+            >
+              Consejometro
             </Menu.Item>
           )
         }

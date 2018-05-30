@@ -18,13 +18,14 @@ export const client = new ApolloClient ({
  });
 
 const token = localStorage.getItem(TOKEN);
-const App =
-<ApolloProvider client={client}>
-  <div>
-    <Toolbar token={token}/>
-    <Routes />
-  </div>
-</ApolloProvider>
+const App = () => (
+  <ApolloProvider client={client}>
+    <div>
+      <Toolbar token={token}/>
+      <Routes />
+    </div>
+  </ApolloProvider>
+);
 
-ReactDOM.render(App, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
